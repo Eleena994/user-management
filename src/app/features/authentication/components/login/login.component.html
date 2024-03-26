@@ -1,0 +1,26 @@
+<nz-alert nzBanner *ngIf="hideBanner" nzType="error" [nzMessage]="errorText" nzCloseable></nz-alert>
+<div class="login-form">
+    <div class="content">
+    <h2>User LogIn</h2>
+    <form nz-form [formGroup]="loginForm">
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your email!">
+                <nz-input-group nzPrefixIcon="user">
+                    <input type="email" nz-input formControlName="email" placeholder="email" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-input-group nzPrefixIcon="lock">
+                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
+           (click)="submitForm()"  [disabled]="!loginForm.valid">Login</button>
+
+    </form>
+    </div>
+</div>

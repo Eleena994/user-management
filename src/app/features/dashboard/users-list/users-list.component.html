@@ -1,0 +1,47 @@
+<nz-alert *ngIf="hideBanner"  nzType="success" [nzMessage]="userText"></nz-alert>
+<nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <div nz-row>
+        <div nz-col nzFlex="4">
+          <div nz-menu-item *ngIf="isAuthenticated()">
+            <p>Welcome, Admin</p>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <li><button class="logout-btn" (click)="logout()">Logout</button></li>
+        </div>
+      </div>
+    </ul>
+</nz-header>
+
+<nz-table *ngIf="userLists" #basicTable [nzData]="userLists">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th *ngIf="isActive">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+            <nz-avatar nzIcon="user" 
+            nzSrc="{{data.avatar}}"></nz-avatar>
+        </td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.first_name }}</td>
+        <td>{{ data.last_name }}</td>
+        <td>
+          <nz-button-group *ngIf="isActive">
+            <button nz-button [disabled]="isAdmin(data.id)" nzType="primary" (click)="approveAdmin(data.id,data.email)"><span nz-icon nzType="user"></span>Approve</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button [disabled]="isAdmin(data.id)" nzType="primary" (click)="update(data.id)"><span nz-icon nzType="edit"></span>Update</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button [disabled]="isAdmin(data.id)" nzType="primary" (click)="delete(data.id)"><span nz-icon nzType="delete"></span>Delete</button>
+          </nz-button-group>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
